@@ -425,13 +425,7 @@ class Roster{
 			}
 			$xx=count($result);
 			foreach($r as $a){
-				/* old code not working well 
- 				echo utf8_decode($a);
-				$words = preg_replace('/\d+/u', '', $a);
-				$x=utf8_decode($words);
-				$str = strtr( $x,$this->unwanted_array);
-				*/
-                $str=$this->remove_accents($a);
+				$str=$this->remove_accents($a);
 				$str=$this->rm_($str);
 				$result[$xx]= trim(preg_replace("/[^a-zA-Z ]+/", "", $str));
 				$xx++;
@@ -474,10 +468,6 @@ public function doMLB(){
 					}
 					$xx=count($result);
 					foreach($r as $a){
-						#echo utf8_decode($a);
-						#$words = preg_replace('/\d+/u', '', $a);
-						#$x=utf8_decode($words);
-						#$str = strtr( $x,$this->unwanted_array);
 						$str=utf8_decode($a);
 						$str=$this->replace_spec_char($str);
 						$str=$this->rm_($str);
@@ -516,17 +506,13 @@ public function doMLB(){
 			$temp_xpath_element=$this->htmlurl($this->NHL[$i]['url']);
 			for($j=2;$j<=24;){
 					$new_path=$this->NHL[$i]['path'].'/tr['.$j.']/td[2]/span[2]/span/a';		
-					#echo $new_path;
+					
 					$da=$this->xpath($temp_xpath_element,$new_path);
 					foreach($da as $f){
 						$r=explode("\n",$f->textContent);
 					}
 					$xx=count($result);
 					foreach($r as $a){
-						#echo utf8_decode($a);
-						#$words = preg_replace('/\d+/u', '', $a);
-						#$x=utf8_decode($words);
-						#$str = strtr( $x,$this->unwanted_array);
 						$str=$this->remove_accents($a);
 						$str=$this->rm_($str); 
 						$result[$xx]= trim(preg_replace("/[^a-zA-Z ]+/", "", $str));
@@ -563,17 +549,14 @@ public function doMLB(){
 			$temp_xpath_element=$this->htmlurl($this->NBA[$i]['url']);
 			for($j=2;$j<=20;){
 					$new_path=$this->NBA[$i]['path'].'/tr['.$j.']/td[3]/a';		
-					#echo $new_path;
+					
 					$da=$this->xpath($temp_xpath_element,$new_path);
 					foreach($da as $f){
 						$r=explode("\n",$f->textContent);
 					}
 					$xx=count($result);
 					foreach($r as $a){
-						#echo utf8_decode($a);
-						#$words = preg_replace('/\d+/u', '', $a);
-						#$x=utf8_decode($words);
-						#$str = strtr( $x,$this->unwanted_array);
+						
 						$str=$this->remove_accents($a);
 						$str=$this->rm_($str); 
 						$result[$xx]=trim(preg_replace("/[^a-zA-Z ]+/", "", $str));
@@ -603,9 +586,9 @@ public function doMLB(){
 $r=new Roster();
 if($r->clear()=="y"){
 	$r->doNFL();
-	#$r->doMLB();
-	#$r->doNHL();
-	#$r->doNBA();
+	$r->doMLB();
+	$r->doNHL();
+	$r->doNBA();
 }else{
 	echo "Cannt delete files please look at the code again";
 }
